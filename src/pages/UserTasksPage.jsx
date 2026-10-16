@@ -45,22 +45,14 @@ function UserTasksPage(){
 
     function handleToggle(taskId) {
     toggleCount.current += 1
-    setTasks(tasks.map((task) =>
-        task.id === taskId
-            ? { ...task, completed: !task.completed }
-            : task
+    setTasks((prev) => prev.map((task) =>
+        task.id === taskId ? { ...task, completed: !task.completed } : task
     ))
-    }   
+}
 
-    function addTask(title){
-        setTasks([...tasks,
-            {
-            id:Date.now(),
-            title,
-            completed: false
-        }])
-
-    }
+function addTask(title) {
+    setTasks((prev) => [...prev, { id: Date.now(), title, completed: false }])
+}
 
     if (loading) return <h1>Loading...</h1>
     if (error) return <h1>{error}</h1>
